@@ -1,0 +1,325 @@
+# release.yaml
+
+## File Metadata
+
+- **Path:** `.github/workflows/release.yaml`
+- **Type:** .yaml
+- **Lines:** 291
+- **Characters:** 8,583
+- **Words:** 764
+- **Size:** text
+
+## Original Source
+
+```yaml
+name: release
+
+on:
+  workflow_run:
+    workflows: [build]
+    branches: [main]
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  tag-release:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} || ${{ github.event.workflow_dispatch }}
+    name: tag-release - Python 3.12 (ubuntu-latest)
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create-release.outputs.upload_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      # Set release output variables
+      - name: Set output
+        id: vars
+        run: |
+          echo "TAG_NAME=v$(scripts/get_version.sh)" >> $GITHUB_ENV
+          echo "RELEASE_NAME=$(scripts/get_version.sh)" >> $GITHUB_ENV
+          echo "## Release notes" > NOTES.md
+          sed -n '/^## /{n; :a; /^## /q; p; n; ba}' CHANGELOG.md >> NOTES.md
+
+      # Create GitHub release
+      - name: Create release
+        id: create-release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ env.RELEASE_NAME }}
+          tag_name: ${{ env.TAG_NAME }}
+          append_body: true
+          body_path: ./NOTES.md
+          prerelease: false
+
+  macos-release:
+    needs: [tag-release]
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        run: rustup toolchain add --profile minimal stable --component clippy,rustfmt
+
+      # Cargo setup
+      - name: Set up Cargo cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-x86_64-cargo-${{ hashFiles('Cargo.lock') }}
+
+      # Python setup
+      - name: Set up Python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Build wheels - x86_64
+        uses: messense/maturin-action@v1
+        with:
+          target: x86_64
+          args: --release --out dist --manifest-path python/Cargo.toml --interpreter python${{ matrix.python-version }}
+
+      - name: Build wheels - universal2
+        uses: messense/maturin-action@v1
+        with:
+          args: --release --target universal2-apple-darwin --out dist --manifest-path python/Cargo.toml --interpreter python${{ matrix.python-version }}
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel-macos-${{ matrix.python-version }}
+          path: dist
+
+  windows-release:
+    needs: [tag-release]
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        run: rustup toolchain add --profile minimal stable --component clippy,rustfmt
+
+      # Cargo setup
+      - name: Set up Cargo cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-x86_64-cargo-${{ hashFiles('Cargo.lock') }}
+
+      # Python setup
+      - name: Set up Python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+
+      - name: Build wheels
+        uses: messense/maturin-action@v1
+        with:
+          target: x64
+          args: --release --out dist --manifest-path python/Cargo.toml --interpreter python${{ matrix.python-version }}
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel-windows-${{ matrix.python-version }}
+          path: dist
+
+  linux-release:
+    needs: [tag-release]
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        target: [x86_64, aarch64]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        run: rustup toolchain add --profile minimal stable --component clippy,rustfmt
+
+      # Cargo setup
+      - name: Set up Cargo cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-${{ matrix.target }}-cargo-${{ hashFiles('Cargo.lock') }}
+
+      # Python setup
+      - name: Set up Python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Build wheels
+        uses: messense/maturin-action@v1
+        with:
+          target: ${{ matrix.target }}
+          manylinux: auto
+          args: --release --out dist --manifest-path python/Cargo.toml --interpreter python${{ matrix.python-version }}
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel-linux-${{ matrix.target }}-${{ matrix.python-version }}
+          path: dist
+
+  linux-musl-release:
+    needs: [tag-release]
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        target: [x86_64-unknown-linux-musl, aarch64-unknown-linux-musl]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        run: rustup toolchain add --profile minimal stable --component clippy,rustfmt
+
+      # Cargo setup
+      - name: Set up Cargo cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-${{ matrix.target }}-cargo-${{ hashFiles('Cargo.lock') }}
+
+      # Python setup
+      - name: Set up Python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Build wheels
+        uses: messense/maturin-action@v1
+        with:
+          target: ${{ matrix.target }}
+          manylinux: musllinux_1_2
+          args: --release --out dist --manifest-path python/Cargo.toml --interpreter python${{ matrix.python-version }}
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel-linux-musl-${{ matrix.target }}-${{ matrix.python-version }}
+          path: dist
+
+  publish-py:
+    runs-on: ubuntu-latest
+    needs:
+      [
+        tag-release,
+        macos-release,
+        windows-release,
+        linux-release,
+        linux-musl-release,
+      ]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: wheel-*
+          merge-multiple: true
+      # Install publish dependencies
+      - name: Install publish dependencies
+        # Upgrade packaging here to try to resolve https://github.com/pypa/twine/issues/1216
+        run: python -m pip install --upgrade packaging twine
+
+      - name: Publish to PyPI
+        id: publish-to-pypi
+        env:
+          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+        run: twine upload *
+
+  publish-rs:
+    runs-on: ubuntu-latest
+    needs:
+      [
+        tag-release,
+        macos-release,
+        windows-release,
+        linux-release,
+        linux-musl-release,
+      ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        run: rustup toolchain add --profile minimal stable --component clippy,rustfmt
+
+      # Cargo setup
+      - name: Set up Cargo cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+
+      - name: Publish dbn-macros to crates.io
+        run: cargo publish --token ${CARGO_REGISTRY_TOKEN} --package dbn-macros
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+
+      - name: Publish dbn to crates.io
+        run: cargo publish --token ${CARGO_REGISTRY_TOKEN} --package dbn
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+
+      - name: Publish dbn-cli to crates.io
+        run: cargo publish --token ${CARGO_REGISTRY_TOKEN} --package dbn-cli
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+
+```
+
+## Overview
+
+This file is part of the repository at `.github/workflows`.
+
+## Detailed Analysis
+
+## Performance & Security Notes
+
+- 🔐 May contain security-sensitive code (passwords/keys/tokens)
+
+## Related Files
+
+- Parent directory: `.github/workflows/`
+
+## Testing
+
+- Test file location: Not specified
+

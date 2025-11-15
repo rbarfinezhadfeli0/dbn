@@ -1,0 +1,63 @@
+# Cargo.toml
+
+## File Metadata
+
+- **Path:** `Cargo.toml`
+- **Type:** .toml
+- **Lines:** 28
+- **Characters:** 535
+- **Words:** 65
+- **Size:** text
+
+## Original Source
+
+```toml
+[workspace]
+members = [
+  "c",
+  "python",
+  "rust/dbn-cli",
+  "rust/dbn-macros",
+  "rust/dbn"
+]
+resolver = "2"
+
+[workspace.package]
+authors = ["Databento <support@databento.com>"]
+edition = "2021"
+version = "0.30.0"
+documentation = "https://databento.com/docs"
+repository = "https://github.com/databento/dbn"
+license = "Apache-2.0"
+
+[workspace.dependencies]
+anyhow = "1.0.97"
+csv = "1.3"
+pyo3 = "0.24.0"
+pyo3-build-config = "0.24.0"
+rstest = "0.25.0"
+serde = { version = "1.0", features = ["derive"] }
+time = ">=0.3.35"
+zstd = "0.13"
+
+```
+
+## Overview
+
+This file is part of the repository at `.`.
+
+This is a Rust package manifest file (Cargo.toml) that defines dependencies, metadata, and build configuration.
+
+## Detailed Analysis
+
+## Performance & Security Notes
+
+
+## Related Files
+
+- Parent directory: `./`
+
+## Testing
+
+- Test file location: Not specified
+

@@ -1,0 +1,96 @@
+# Cargo.toml
+
+## File Metadata
+
+- **Path:** `rust/dbn/Cargo.toml`
+- **Type:** .toml
+- **Lines:** 52
+- **Characters:** 1,797
+- **Words:** 268
+- **Size:** text
+
+## Original Source
+
+```toml
+[package]
+name = "dbn"
+description = "Library for working with Databento Binary Encoding (DBN)"
+keywords = ["finance", "market-data", "conversion", "encoding", "trading"]
+# see https://crates.io/category_slugs
+categories = ["encoding"]
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[package.metadata.docs.rs]
+# Document all features on docs.rs
+all-features = true
+# To build locally: `RUSTDOCFLAGS="--cfg docsrs" cargo +nightly doc --all-features --open`
+rustdoc-args = ["--cfg", "docsrs"]
+
+[features]
+default = []
+async = ["dep:async-compression", "dep:tokio"]
+python = ["dep:pyo3", "dep:strum"]
+serde = ["dep:serde", "time/parsing", "time/serde"]
+# Enables deriving the `Copy` trait for records.
+trivial_copy = []
+
+[dependencies]
+dbn-macros = { version = "=0.30.0", path = "../dbn-macros" }
+
+async-compression = { version = "0.4.22", features = ["tokio", "zstd"], optional = true }
+csv = { workspace = true }
+fallible-streaming-iterator = { version = "0.1.9", features = ["std"] }
+# Fast integer to string conversion
+itoa = "1.0"
+num_enum = "0.7"
+pyo3 = { workspace = true, optional = true }
+json-writer = "0.4"
+serde = { workspace = true, features = ["derive"], optional = true }
+# extra enum traits for Python
+strum = { version = "0.27", features = ["derive"], optional = true }
+thiserror = "2.0"
+time = { workspace = true, features = ["formatting", "macros"] }
+tokio = { version = ">=1.28", features = ["fs", "io-util"], optional = true }
+zstd = { workspace = true }
+
+[dev-dependencies]
+rstest = { workspace = true }
+strum = { version = "0.27", features = ["derive"] }
+tokio = { version = "1", features = ["fs", "io-util", "macros", "rt-multi-thread"] }
+# Checking alignment and padding
+type-layout = "0.2.0"
+
+```
+
+## Overview
+
+This file is part of the repository at `rust/dbn`.
+
+This is a Rust package manifest file (Cargo.toml) that defines dependencies, metadata, and build configuration.
+
+## Detailed Analysis
+
+### Enums (1)
+
+- `traits`
+
+### Traits (1)
+
+- `for`
+
+## Performance & Security Notes
+
+- 🔐 May contain security-sensitive code (passwords/keys/tokens)
+
+## Related Files
+
+- Parent directory: `rust/dbn/`
+
+## Testing
+
+- Test file location: Not specified
+

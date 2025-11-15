@@ -1,0 +1,58 @@
+# Cargo.toml
+
+## File Metadata
+
+- **Path:** `rust/dbn-macros/Cargo.toml`
+- **Type:** .toml
+- **Lines:** 23
+- **Characters:** 449
+- **Words:** 68
+- **Size:** text
+
+## Original Source
+
+```toml
+[package]
+name = "dbn-macros"
+description = "Proc macros for dbn crate"
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro-crate = "3.3.0"
+proc-macro2 = "1.0.94"
+quote = "1.0.40"
+syn = { version = "2.0", features = ["full"] }
+
+[dev-dependencies]
+csv = { workspace = true }
+dbn = { path = "../dbn" }
+trybuild = "1.0.104"
+
+```
+
+## Overview
+
+This file is part of the repository at `rust/dbn-macros`.
+
+This is a Rust package manifest file (Cargo.toml) that defines dependencies, metadata, and build configuration.
+
+## Detailed Analysis
+
+## Performance & Security Notes
+
+
+## Related Files
+
+- Parent directory: `rust/dbn-macros/`
+
+## Testing
+
+- Test file location: Not specified
+

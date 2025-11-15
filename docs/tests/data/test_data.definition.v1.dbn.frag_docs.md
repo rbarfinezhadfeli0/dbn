@@ -1,0 +1,16 @@
+# test_data.definition.v1.dbn.frag.zst
+
+**Type:** Binary file
+**Path:** `tests/data/test_data.definition.v1.dbn.frag.zst`
+**Size:** 390 bytes
+**MIME Type:** application/zstd
+
+## Description
+
+This is a binary file and cannot be displayed as text. Based on the file extension and type, this file should be handled by appropriate binary tools or viewers.
+
+## Suggested Handling
+
+- For images: Use image viewers or editors
+- For archives: Extract using appropriate decompression tools
+- For executables: These are compiled binaries

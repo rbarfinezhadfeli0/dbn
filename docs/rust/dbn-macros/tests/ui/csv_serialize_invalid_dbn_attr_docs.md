@@ -1,0 +1,78 @@
+# csv_serialize_invalid_dbn_attr.stderr
+
+## File Metadata
+
+- **Path:** `rust/dbn-macros/tests/ui/csv_serialize_invalid_dbn_attr.stderr`
+- **Type:** .stderr
+- **Lines:** 34
+- **Characters:** 1,207
+- **Words:** 148
+- **Size:** text
+
+## Original Source
+
+```
+error: unrecognized dbn attr argument unknown
+ --> tests/ui/csv_serialize_invalid_dbn_attr.rs:6:11
+  |
+6 |     #[dbn(unknown)]
+  |           ^^^^^^^
+
+error[E0603]: module `serialize` is private
+ --> tests/ui/csv_serialize_invalid_dbn_attr.rs:3:10
+  |
+3 | #[derive(CsvSerialize)]
+  |          ^^^^^^^^^^^^
+  |          |
+  |          private module
+  |          trait `WriteField` is not publicly re-exported
+  |
+note: the module `serialize` is defined here
+ --> $WORKSPACE/rust/dbn/src/encode/csv.rs
+  |
+  | pub(crate) mod serialize;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no function or associated item named `write_header` found for type `u8` in the current scope
+ --> tests/ui/csv_serialize_invalid_dbn_attr.rs:3:10
+  |
+3 | #[derive(CsvSerialize)]
+  |          ^^^^^^^^^^^^ function or associated item not found in `u8`
+  |
+  = help: items from traits can only be used if the trait is in scope
+  = note: this error originates in the derive macro `CsvSerialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: trait `WriteField` which provides `write_header` is implemented but not in scope; perhaps you want to import it
+  |
+1 + use dbn::encode::csv::serialize::WriteField;
+  |
+
+```
+
+## Overview
+
+This file is part of the repository at `rust/dbn-macros/tests/ui`.
+
+## Detailed Analysis
+
+### Traits (1)
+
+- `is`
+
+### Dependencies/Imports (3)
+
+- `dbn::encode::csv::serialize::WriteField`
+- `it`
+- `traits`
+
+## Performance & Security Notes
+
+
+## Related Files
+
+- Parent directory: `rust/dbn-macros/tests/ui/`
+- See imported modules in Dependencies section above
+
+## Testing
+
+This file appears to be a test file.
+
