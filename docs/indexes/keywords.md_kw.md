@@ -1,0 +1,85 @@
+# Keyword Map: indexes/keywords.md
+
+## File Path and Links
+
+**Original File:** [indexes/keywords.md](../../indexes/keywords.md)
+**Documentation:** [keywords.md_docs.md](keywords.md_docs.md)
+
+## Keywords
+
+This file contains the following significant keywords and concepts:
+
+- **Apache**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Async**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Binary**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Breaking**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Build**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Cargo**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Changelog**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Changes**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Code**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Community**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Compression**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Conduct**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Contributing**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Contributor**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Covenant**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Data**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Databento**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Dataset**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Decoder**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Definition**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Documentation**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Encoder**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Encoding**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Enhancement**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Enums**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Feature**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Fixes**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Fragment**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **GitHub**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Index**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Installation**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Instrument**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **JSON**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Keywords**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Library**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **License**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Linting**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Mapping**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Market**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Maturin**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Metadata**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **OHLCV**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Performance**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Publisher**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Pull**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **PyPI**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Python**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Records**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Releases**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Report**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Request**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Rust**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Schema**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Serialization**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Slack**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Streaming**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Symbol**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Testing**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Timestamp**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Traits**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Upgrade**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Usage**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Venue**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Version**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **Zstandard**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **cbindgen**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+- **pyo3**: Defined or used in this file → [View Documentation](keywords.md_docs.md)
+
+
+## Keyword → Section Map
+
+The keywords above can be found in various sections of the documentation file.
+Refer to the [full documentation]({docs_rel}) for detailed explanations.
+

@@ -1,0 +1,55 @@
+# Documentation: rust/dbn-macros/tests/ui/json_serialize_conflicting_dbn_attr.stderr
+
+## File Metadata
+
+**Path:** `rust/dbn-macros/tests/ui/json_serialize_conflicting_dbn_attr.stderr`
+**Filename:** `json_serialize_conflicting_dbn_attr.stderr`
+**Extension:** `.stderr`
+**Type:** Text
+
+## Original Source
+
+**Location:** `../../../../../rust/dbn-macros/tests/ui/json_serialize_conflicting_dbn_attr.stderr`
+
+### Source Content
+
+```stderr
+error: Passed incompatible serialization arguments to dbn attr
+ --> tests/ui/json_serialize_conflicting_dbn_attr.rs:6:5
+  |
+6 |     #[dbn(fixed_price, unix_nanos)]
+  |     ^
+
+error[E0433]: failed to resolve: unresolved import
+ --> tests/ui/json_serialize_conflicting_dbn_attr.rs:3:10
+  |
+3 | #[derive(JsonSerialize)]
+  |          ^^^^^^^^^^^^^ unresolved import
+  |
+  = note: this error originates in the derive macro `JsonSerialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0603]: module `serialize` is private
+ --> tests/ui/json_serialize_conflicting_dbn_attr.rs:3:10
+  |
+3 | #[derive(JsonSerialize)]
+  |          ^^^^^^^^^^^^^
+  |          |
+  |          private module
+  |          trait `WriteField` is not publicly re-exported
+  |
+note: the module `serialize` is defined here
+ --> $WORKSPACE/rust/dbn/src/encode/json.rs
+  |
+  | pub(crate) mod serialize;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^
+
+```
+
+## High-Level Overview
+
+This file is located at `rust/dbn-macros/tests/ui/json_serialize_conflicting_dbn_attr.stderr` within the repository.
+
+### File Overview
+
+This file is part of the repository's supporting infrastructure or data.
+
